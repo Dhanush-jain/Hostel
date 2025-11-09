@@ -1,72 +1,95 @@
-import Image from "next/image";
-// In _app.js or _document.js (Head component)
+"use client";
+import React from "react";
+import Link from "next/link";
 
 export default function Home() {
   return (
-   <>
- <section className="pt-18 p-8">
-        <h1 className="text-4xl font-bold text-center mb-6">Welcome to Our Hostel Management System</h1>
-        <p className="text-lg text-gray-700 mb-12 text-center">
-          Efficiently manage student accommodations, meal plans, and important information in one seamless platform.
+    <div className="min-h-screen flex flex-col">
+   
+
+      {/* ---------------- HERO SECTION ---------------- */}
+      <section className="bg-[url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b')] bg-cover bg-center h-[70vh] flex flex-col justify-center items-center text-white text-center">
+        <div className="bg-black bg-opacity-50 p-6 rounded-lg">
+          <h2 className="text-4xl font-bold mb-3">Welcome to Our Hostel</h2>
+          <p className="text-lg mb-5">
+            Your Home Away From Home – Safe, Clean & Comfortable Living for Students
+          </p>
+          <Link href="/admission" className="bg-blue-500 px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+            Apply Now
+          </Link>
+        </div>
+      </section>
+
+      {/* ---------------- ABOUT SECTION ---------------- */}
+      <section id="about" className="py-12 bg-gray-50 text-center">
+        <h2 className="text-3xl font-bold mb-4">About Our Hostel</h2>
+        <p className="max-w-2xl mx-auto text-gray-600">
+          We provide high-quality accommodation for students, complete with hygienic food, Wi-Fi access, and round-the-clock security.
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Card 1 */}
-          <div className="relative group bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer border border-transparent hover:bg-blue-50 hover:border-blue-400 transition-all duration-300">
-            <Image 
-              src="/hostel-room.jpg" alt="Hostel Rooms" 
-              width={400} height={250} 
-              className="object-cover w-full h-48"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">Room Booking</h2>
-              <p className="text-gray-600">Book rooms easily with real-time availability and seamless payment integration.</p>
-            </div>
-            <div className="absolute inset-0 bg-blue-600 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 rounded-lg transition-opacity duration-300">
-              <p className="text-white text-center px-4 text-sm">
-                Click here to book your comfortable room instantly!
-              </p>
-            </div>
+        <div className="mt-8 grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          <div className="bg-white shadow p-6 rounded-xl">
+            <h3 className="text-xl font-semibold mb-2">🏡 Comfortable Rooms</h3>
+            <p>Spacious and well-maintained rooms designed for convenience.</p>
           </div>
-
-          {/* Card 2 */}
-          <div className="relative group bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer border border-transparent hover:bg-green-50 hover:border-green-400 transition-all duration-300">
-            <Image 
-              src="/mess-facility.jpg" alt="Mess Facility" 
-              width={400} height={250} 
-              className="object-cover w-full h-48"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">Mess Facility</h2>
-              <p className="text-gray-600">Manage meal plans and monitor mess usage for a hassle-free dining experience.</p>
-            </div>
-            <div className="absolute inset-0 bg-green-600 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 rounded-lg transition-opacity duration-300">
-              <p className="text-white text-center px-4 text-sm">
-                View meal plans, subscribe, and customize your dining preferences.
-              </p>
-            </div>
+          <div className="bg-white shadow p-6 rounded-xl">
+            <h3 className="text-xl font-semibold mb-2">🍽️ Hygienic Food</h3>
+            <p>Nutritious meals served daily in our clean mess facility.</p>
           </div>
-
-          {/* Card 3 */}
-          <div className="relative group bg-white rounded-lg shadow-lg overflow-hidden cursor-pointer border border-transparent hover:bg-purple-50 hover:border-purple-400 transition-all duration-300">
-            <Image 
-              src="/rules-regulations.jpg" alt="Rules and Regulations" 
-              width={400} height={250} 
-              className="object-cover w-full h-48"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">Rules & Regulations</h2>
-              <p className="text-gray-600">Stay informed about hostel policies to ensure a safe and respectful environment for all.</p>
-            </div>
-            <div className="absolute inset-0 bg-purple-600 bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 rounded-lg transition-opacity duration-300">
-              <p className="text-white text-center px-4 text-sm">
-                Read the rules and keep the hostel environment harmonious.
-              </p>
-            </div>
+          <div className="bg-white shadow p-6 rounded-xl">
+            <h3 className="text-xl font-semibold mb-2">🛡️ Safe Environment</h3>
+            <p>24/7 security and a peaceful atmosphere for all residents.</p>
           </div>
         </div>
-      
-    </section>
-   </>
+      </section>
+
+      {/* ---------------- QUICK LINKS ---------------- */}
+      <section id="links" className="py-10 bg-white">
+        <h2 className="text-3xl font-bold text-center mb-8">Quick Access</h2>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {[
+            { title: "Admission Form", link: "/admission" },
+            { title: "Mess Subscription", link: "/mess" },
+            { title: "Notice Board", link: "/notice-board" },
+            { title: "Rules & Regulations", link: "/rules" },
+            { title: "Complaint Section", link: "/contact" },
+            { title: "Contact Us", link: "/contact" },
+          ].map((item, index) => (
+            <Link
+              key={index}
+              href={item.link}
+              className="bg-blue-100 p-6 rounded-xl text-center shadow hover:bg-blue-200 transition"
+            >
+              <h3 className="text-xl font-semibold text-blue-700">{item.title}</h3>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* ---------------- NOTICE BOARD ---------------- */}
+      <section id="notices" className="py-12 bg-gray-50">
+        <h2 className="text-3xl font-bold text-center mb-6">Latest Notices</h2>
+        <div className="max-w-3xl mx-auto space-y-4">
+          <div className="bg-white p-4 rounded-lg shadow">
+            <p className="font-semibold">🗓️ Hostel Fees Due - 15th Nov</p>
+          </div>
+          <div className="bg-white p-4 rounded-lg shadow">
+            <p className="font-semibold">🍛 Updated Mess Menu for This Week</p>
+          </div>
+          <div className="bg-white p-4 rounded-lg shadow">
+            <p className="font-semibold">⚙️ Wi-Fi Maintenance on Saturday</p>
+          </div>
+        </div>
+        <div className="text-center mt-6">
+          <Link href="/notice-board" className="text-blue-600 hover:underline font-medium">
+            View All Notices →
+          </Link>
+        </div>
+      </section>
+
+
+
+     
+    </div>
   );
 }
