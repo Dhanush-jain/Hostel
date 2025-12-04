@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
-import { db, auth } from "../../firebase";
+import { useState, useEffect } from "react";
+import Script from "next/script";
+import { db, auth } from "../../../firebase";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
 
@@ -11,15 +11,20 @@ export default function MealSubscription() {
   const [duration, setDuration] = useState("");
   const [amount, setAmount] = useState(0);
   const [user, setUser] = useState(null);
-  const [isSaving, setIsSaving] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
   const [message, setMessage] = useState("");
 
   const costPerMeal = 50;
   const mealsInMonth = 30;
   const mealsInYear = 365;
 
-  // ✅ Get current logged-in user
-  onAuthStateChanged(auth, (currentUser) => setUser(currentUser));
+  // useEffect so auth state is set reactively
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+    });
+    return () => unsub();
+  }, []);
 
   const calculateAmount = (planChoice, durationChoice) => {
     let mealsPerDay = 0;
@@ -40,8 +45,11 @@ export default function MealSubscription() {
     }
 
     let base = 0;
-    if (durationChoice === "monthly") base = mealsPerDay * costPerMeal * mealsInMonth;
-    if (durationChoice === "yearly") base = mealsPerDay * costPerMeal * mealsInYear;
+    if (durationChoice === "monthly")
+      base = mealsPerDay * costPerMeal * mealsInMonth;
+    if (durationChoice === "yearly")
+      base = mealsPerDay * costPerMeal * mealsInYear;
+
     setAmount(base);
   };
 
@@ -53,46 +61,102 @@ export default function MealSubscription() {
     const newDuration = type === "duration" ? value : duration;
 
     if (newPlan && newDuration) calculateAmount(newPlan, newDuration);
+    else setAmount(0);
   };
 
+  // Razorpay + Firebase flow
   const handleConfirm = async () => {
     if (!user) {
-      alert("Please log in to confirm your subscription!");
+      alert("Please log in first!");
       return;
     }
-
     if (!plan || !duration) {
-      alert("Please select a plan and duration!");
+      alert("Please select plan & duration!");
+      return;
+    }
+    if (!amount || amount <= 0) {
+      alert("Invalid amount. Please reselect plan/duration.");
       return;
     }
 
-    setIsSaving(true);
+    setIsProcessing(true);
+    setMessage("");
+
     try {
-      await addDoc(collection(db, "mealSubscriptions"), {
-        uid: user.uid,
-        email: user.email,
-        plan,
-        duration,
-        amount,
-        timestamp: serverTimestamp(),
+      // send amount to backend to create order
+      const createOrderRes = await fetch("/api/create-order", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount }), // send INR amount
       });
-      setMessage("✅ Subscription saved successfully!");
+
+      const orderData = await createOrderRes.json();
+      if (!createOrderRes.ok || !orderData?.id) {
+        throw new Error(orderData?.error || "Failed to create order");
+      }
+
+      const options = {
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
+        amount: Math.round(amount * 100), // paise
+        currency: "INR",
+        name: "Hostel Meal Subscription",
+        description: `${plan} - ${duration}`,
+        order_id: orderData.id,
+        handler: async function (response) {
+          try {
+            // Save subscription after successful payment
+            await addDoc(collection(db, "mealSubscriptions"), {
+              uid: user.uid,
+              email: user.email,
+              plan,
+              duration,
+              amount,
+              payment_id: response.razorpay_payment_id,
+              order_id: response.razorpay_order_id,
+              signature: response.razorpay_signature,
+              timestamp: serverTimestamp(),
+            });
+            setMessage("✅ Payment successful & subscription saved!");
+          } catch (err) {
+            console.error("Failed saving subscription:", err);
+            setMessage("⚠️ Payment succeeded but saving subscription failed.");
+          }
+        },
+        prefill: {
+          name: user.displayName || "Student",
+          email: user.email,
+        },
+        theme: {
+          color: "#3b82f6",
+        },
+      };
+
+      const rzp = new window.Razorpay(options);
+      rzp.on("payment.failed", function (response) {
+        console.error("Payment failed:", response);
+        setMessage("❌ Payment failed. Try again or contact support.");
+      });
+
+      rzp.open();
     } catch (err) {
-      console.error("Error saving subscription:", err);
-      setMessage("❌ Failed to save subscription. Try again.");
+      console.error("Payment flow error:", err);
+      setMessage("❌ Could not start payment. Try again.");
     } finally {
-      setIsSaving(false);
+      setIsProcessing(false);
     }
   };
 
   return (
     <div className="min-h-screen m-10 bg-white text-white p-6 flex flex-col items-center">
+      {/* Razorpay script */}
+      <Script src="https://checkout.razorpay.com/v1/checkout.js" />
+
       <div className="w-full max-w-2xl bg-gray-800 rounded-2xl shadow-xl p-8">
         <h1 className="text-3xl font-bold mb-6 text-center text-blue-400">
           🍽️ Meal Subscription & Payment
         </h1>
 
-        {/* --- Meal Plan Selection --- */}
+        {/* Meal Plan */}
         <div className="space-y-4 mb-6">
           <h2 className="text-xl font-semibold">Select your meal plan:</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -121,9 +185,11 @@ export default function MealSubscription() {
           </div>
         </div>
 
-        {/* --- Duration --- */}
+        {/* Duration */}
         <div className="space-y-4 mb-6">
-          <h2 className="text-xl font-semibold">Select subscription duration:</h2>
+          <h2 className="text-xl font-semibold">
+            Select subscription duration:
+          </h2>
           <div className="flex flex-col sm:flex-row gap-3">
             {["monthly", "yearly"].map((d) => (
               <label
@@ -144,48 +210,31 @@ export default function MealSubscription() {
           </div>
         </div>
 
-        {/* --- Display Amount --- */}
+        {/* Amount Display */}
         {amount > 0 && (
           <div className="text-center mb-8">
             <h3 className="text-2xl font-semibold text-yellow-400">
               Total Payable Amount: ₹{amount.toLocaleString()}
             </h3>
-            <p className="text-sm text-gray-400">(Includes all selected meals)</p>
+            <p className="text-sm text-gray-400">(Includes all meals)</p>
           </div>
         )}
 
-        {/* --- QR Code --- */}
-        {amount > 0 && (
-          <div className="bg-gray-700 p-4 rounded-xl text-center mb-6">
-            <h2 className="text-lg font-semibold mb-2">Scan to Pay</h2>
-            <div className="flex justify-center">
-              <Image
-                src="/qr-code.png"
-                alt="Payment QR Code"
-                width={200}
-                height={200}
-                className="rounded-lg border border-gray-500"
-              />
-            </div>
-            <p className="text-gray-400 mt-2 text-sm">
-              Scan the QR to complete your payment.
-            </p>
-          </div>
-        )}
-
-        {/* --- Confirm Button --- */}
+        {/* Proceed to Pay */}
         {amount > 0 && (
           <button
             onClick={handleConfirm}
-            disabled={isSaving}
+            disabled={isProcessing}
             className="w-full bg-blue-600 hover:bg-blue-700 py-3 rounded-lg font-semibold transition disabled:bg-gray-600"
           >
-            {isSaving ? "Saving..." : "Confirm Subscription"}
+            {isProcessing ? "Processing..." : "Proceed to Pay"}
           </button>
         )}
 
-        {/* --- Status Message --- */}
-        {message && <p className="text-center mt-4 text-green-400">{message}</p>}
+        {/* Message */}
+        {message && (
+          <p className="text-center mt-4 text-green-400">{message}</p>
+        )}
       </div>
     </div>
   );

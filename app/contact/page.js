@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
+import Footer from "../footer/page";
 
 export default function ContactPage() {
   // State for complaint form
@@ -18,6 +19,7 @@ export default function ContactPage() {
   };
 
   return (
+    <>
     <div className="min-h-screen bg-gray-50 py-12 px-6 md:px-16 mt-10">
       {/* Title */}
       <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">
@@ -48,7 +50,7 @@ export default function ContactPage() {
               onChange={handleChange}
               className="w-full border p-2 rounded-md focus:outline-blue-400"
               required
-            />
+              />
             <input
               type="text"
               name="room"
@@ -66,11 +68,11 @@ export default function ContactPage() {
               onChange={handleChange}
               className="w-full border p-2 rounded-md focus:outline-blue-400"
               required
-            />
+              />
             <button
               type="submit"
               className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition"
-            >
+              >
               Submit Complaint
             </button>
           </form>
@@ -106,5 +108,7 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
+    <Footer/>
+</>
   );
 }

@@ -1,10 +1,10 @@
-'use client';
+"use client";
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../../firebase";
 
 const links = [
   { href: "/", label: "Home" },
@@ -43,7 +43,9 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-3">
         {/* Logo */}
         <div className="font-bold text-xl">
-          <Link href="/" className="text-2xl">GIT</Link>
+          <Link href="/" className="text-2xl">
+            GIT
+          </Link>
         </div>
 
         {/* Desktop Links */}
@@ -57,6 +59,13 @@ export default function Navbar() {
               {label}
             </Link>
           ))}
+
+          <Link
+            href="/dashboard"
+            className="flex items-center gap-2 px-3 py-2  rounded-lg  transition"
+          >
+            <span>Profile</span>
+          </Link>
           {/* Logout button for desktop */}
           <button
             onClick={handleLogout}

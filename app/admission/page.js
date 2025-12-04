@@ -42,7 +42,7 @@ export default function MessAdmission() {
 
   return (
     <div className="min-h-screen m-10 bg-white text-white py-10 px-6 mt-20">
-      <div className="max-w-3xl mx-auto bg-white text-black p-8 rounded-2xl shadow-lg">
+      <div className="max-w-3xl mx-auto bg-gray-200 text-black p-8 rounded-2xl shadow-lg">
         <h1 className="text-3xl font-bold mb-6 text-center">
           🏫 Hostel Admission Form
         </h1>
@@ -57,10 +57,11 @@ export default function MessAdmission() {
               <input
                 type="text"
                 name="name"
+                placeholder="Enter your name"
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-md text-black"
+                className="w-full p-2 rounded-md border-1 text-black"
               />
             </div>
 
@@ -71,10 +72,11 @@ export default function MessAdmission() {
               <input
                 type="text"
                 name="rollNo"
+                placeholder="Enter your Roll No."
                 value={formData.rollNo}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-md text-black"
+                className="w-full p-2 rounded-md border-1 text-black"
               />
             </div>
 
@@ -85,10 +87,11 @@ export default function MessAdmission() {
               <input
                 type="text"
                 name="department"
+                placeholder="Enter your department"
                 value={formData.department}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-md text-black"
+                className="w-full border-1 p-2 rounded-md text-black"
               />
             </div>
 
@@ -99,10 +102,11 @@ export default function MessAdmission() {
               <input
                 type="text"
                 name="year"
+                placeholder="Year"
                 value={formData.year}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-md text-black"
+                className="w-full p-2 border-1 rounded-md text-black"
               />
             </div>
 
@@ -113,10 +117,11 @@ export default function MessAdmission() {
               <input
                 type="tel"
                 name="phone"
+                placeholder="+91"
                 value={formData.phone}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-md text-black"
+                className="w-full p-2 border-1 rounded-md text-black"
               />
             </div>
 
@@ -127,10 +132,11 @@ export default function MessAdmission() {
               <input
                 type="email"
                 name="email"
+                placeholder="Enter your email"
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-md text-black"
+                className="w-full p-2 border-1 rounded-md text-black"
               />
             </div>
 
@@ -141,10 +147,11 @@ export default function MessAdmission() {
               <input
                 type="text"
                 name="hostel"
+                placeholder="Enter hostel name"
                 value={formData.hostel}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-md text-black"
+                className="w-full p-2 border-1 rounded-md text-black"
               />
             </div>
 
@@ -155,15 +162,16 @@ export default function MessAdmission() {
               <input
                 type="text"
                 name="room"
+                placeholder="Enter room number"
                 value={formData.room}
                 onChange={handleChange}
                 required
-                className="w-full p-2 rounded-md text-black"
+                className="w-full p-2 rounded-md border-1 text-black"
               />
             </div>
           </div>
 
-          {/* Fee Receipt Upload */}
+
           <div>
             <label className="block text-sm font-semibold mb-2">
               Upload College Fee Receipt

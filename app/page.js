@@ -1,24 +1,29 @@
 "use client";
 import React from "react";
 import Link from "next/link";
+import Footer from "./footer/page";
 
 export default function Home() {
   return (
+    <>
+    
     <div className="min-h-screen flex flex-col">
    
+     <section className="bg-[url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b')] bg-cover bg-center h-[85vh] flex flex-col justify-center items-center text-white text-center">
+  <div className="backdrop-blur-lg bg-white/10 p-6 rounded-lg shadow-xl">
+    <h2 className="text-5xl font-bold mb-4">Welcome to Our Hostel</h2>
+    <p className="text-xl mb-6">
+      Your Home Away From Home – Safe, Clean & Comfortable Living for Students
+    </p>
+    <Link
+      href="/admission"
+      className="bg-blue-500 px-6 py-3 rounded-lg text-lg font-semibold hover:bg-blue-700 transition"
+    >
+      Apply Now
+    </Link>
+  </div>
+</section>
 
-      {/* ---------------- HERO SECTION ---------------- */}
-      <section className="bg-[url('https://images.unsplash.com/photo-1503676260728-1c00da094a0b')] bg-cover bg-center h-[70vh] flex flex-col justify-center items-center text-white text-center">
-        <div className="bg-black bg-opacity-50 p-6 rounded-lg">
-          <h2 className="text-4xl font-bold mb-3">Welcome to Our Hostel</h2>
-          <p className="text-lg mb-5">
-            Your Home Away From Home – Safe, Clean & Comfortable Living for Students
-          </p>
-          <Link href="/admission" className="bg-blue-500 px-5 py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
-            Apply Now
-          </Link>
-        </div>
-      </section>
 
       {/* ---------------- ABOUT SECTION ---------------- */}
       <section id="about" className="py-12 bg-gray-50 text-center">
@@ -89,7 +94,9 @@ export default function Home() {
 
 
 
-     
+    
     </div>
+    <Footer/>
+    </>
   );
 }

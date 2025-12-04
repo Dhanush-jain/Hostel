@@ -5,6 +5,7 @@ import "./globals.css";
 import Navbar from "./navbar/page";
 import { usePathname } from "next/navigation";
 import Footer from "./footer/page";
+import LenisProvider from "./lenis/lenisprovider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +30,8 @@ export default function RootLayout({ children }) {
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {!shouldHideNavbar && <Navbar />}
         {children}
-        <Footer/>
+        <LenisProvider/>
+       
       </body>
     </html>
   );

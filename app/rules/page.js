@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Footer from "../footer/page";
 
 const rulesData = [
   {
@@ -82,6 +83,7 @@ const RulesPage = () => {
   };
 
   return (
+    <>
     <div className="min-h-screen bg-gray-50 flex justify-center py-10 px-4 mt-20">
       <div className="max-w-3xl w-full bg-white shadow-xl rounded-2xl p-6">
         <h1 className="text-3xl font-bold text-center text-indigo-600 mb-6">
@@ -90,13 +92,13 @@ const RulesPage = () => {
 
         {rulesData.map((rule, index) => (
           <div
-            key={index}
-            className="border-b border-gray-200 mb-2 last:border-none"
+          key={index}
+          className="border-b border-gray-200 mb-2 last:border-none"
           >
             <button
               onClick={() => toggleAccordion(index)}
               className="w-full flex justify-between items-center py-3 text-left"
-            >
+              >
               <span className="text-lg font-semibold text-gray-800">
                 {rule.title}
               </span>
@@ -104,7 +106,7 @@ const RulesPage = () => {
                 className={`text-indigo-600 text-2xl font-bold transform transition-transform duration-300 ${
                   openIndex === index ? "rotate-180" : "rotate-0"
                 }`}
-              >
+                >
                 ⌃
               </span>
             </button>
@@ -129,6 +131,8 @@ const RulesPage = () => {
         </div>
       </div>
     </div>
+    <Footer/>
+</>
   );
 };
 

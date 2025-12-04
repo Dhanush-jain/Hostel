@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { db, auth } from "../../firebase";
+import { db, auth } from "../../../firebase";
 import {
   collection,
   addDoc,
@@ -18,7 +18,12 @@ export default function Voting() {
   const [votes, setVotes] = useState({});
   const [loading, setLoading] = useState(true);
 
-  const foodOptions = ["Paneer Butter Masala", "Fried Rice", "Rajma Chawal", "Pasta"];
+  const foodOptions = [
+    "Paneer Butter Masala",
+    "Fried Rice",
+    "Rajma Chawal",
+    "Pasta",
+  ];
 
   // ✅ Watch for user login
   useEffect(() => {
@@ -79,7 +84,8 @@ export default function Voting() {
         </h2>
 
         <p className="text-gray-400 text-center mb-6">
-          Select your favorite dish for today's menu and see what others are choosing in real time!
+          Select your favorite dish for today's menu and see what others are
+          choosing in real time!
         </p>
 
         <div className="space-y-4 mb-6 text-amber-50">
@@ -133,7 +139,9 @@ export default function Voting() {
         </div>
 
         <p className="text-sm text-gray-500 text-center mt-6">
-          {user ? `Logged in as: ${user.email}` : "Please log in to cast your vote"}
+          {user
+            ? `Logged in as: ${user.email}`
+            : "Please log in to cast your vote"}
         </p>
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { db } from "../../firebase";
+import { db } from "../../../firebase";
 import { collection, addDoc, getDocs } from "firebase/firestore";
 
 export default function AttendancePage() {

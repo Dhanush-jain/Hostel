@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Footer from "../footer/page";
 
 export default function MessPage() {
   const features = [
@@ -37,6 +38,7 @@ export default function MessPage() {
   ];
 
   return (
+    <>
     <div className="p-8 m-6 mt-10 w-full">
       <h1 className="text-3xl font-bold text-center mb-8">
         🍽️ Hostel Mess Management
@@ -45,9 +47,9 @@ export default function MessPage() {
       <div className="flex flex-col gap-6">
         {features.map((f, i) => (
           <Link
-            key={i}
-            href={f.link}
-            className={`${f.color} w-full block p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:scale-[1.01]`}
+          key={i}
+          href={f.link}
+          className={`${f.color} w-full block p-6 rounded-xl shadow-md hover:shadow-xl transition transform hover:scale-[1.01]`}
           >
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
               <div>
@@ -62,5 +64,7 @@ export default function MessPage() {
         ))}
       </div>
     </div>
+<Footer/>    
+</>
   );
 }
