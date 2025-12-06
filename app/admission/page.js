@@ -151,24 +151,11 @@ export default function MessAdmission() {
                 value={formData.hostel}
                 onChange={handleChange}
                 required
-                className="w-full p-2 border-1 rounded-md text-black"
+                className="w-176 p-2 border-1 rounded-md text-black"
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold mb-1">
-                Room Number
-              </label>
-              <input
-                type="text"
-                name="room"
-                placeholder="Enter room number"
-                value={formData.room}
-                onChange={handleChange}
-                required
-                className="w-full p-2 rounded-md border-1 text-black"
-              />
-            </div>
+           
           </div>
 
 

@@ -30,21 +30,31 @@ export default function AuthPage() {
 
     try {
       if (isLogin) {
-        // 🔐 LOGIN
+        // 🔐 ----- LOGIN -----
+
+        // 🟡 Check if admin login
+        if (email === "admin@example.com" && password === "admin123") {
+          toast.success("👑 Admin logged in!");
+          setTimeout(() => router.push("/admin"), 1000);
+          return;
+        }
+
+        // 🟢 Normal user login
         await signInWithEmailAndPassword(auth, email, password);
 
-        toast.success("✅ Logged in successfully!");
+        toast.success("✅ User logged in!");
 
-        setTimeout(() => router.push("/dashboard"), 1000);
+        setTimeout(() => router.push("/"), 1000);
 
       } else {
-        // 🆕 REGISTER
+        // 🆕 ----- REGISTER -----
+
         if (password !== confirm) {
           toast.error("❌ Passwords do not match!");
           return;
         }
 
-        // 1️⃣ Create user in Firebase Auth
+        // Create user in Firebase Auth
         const userCred = await createUserWithEmailAndPassword(
           auth,
           email,
@@ -53,16 +63,16 @@ export default function AuthPage() {
 
         const user = userCred.user;
 
-        // 2️⃣ Save name in Firebase Auth (displayName)
+        // Save display name
         await updateProfile(user, {
           displayName: name,
         });
 
-        // 3️⃣ Save user data to Firestore
+        // Save user data to Firestore
         await setDoc(doc(db, "users", user.uid), {
           name: name,
           email: email,
-          phone:"",
+          phone: "",
           room: "",
           profilePic: "",
           createdAt: new Date(),

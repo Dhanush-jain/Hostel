@@ -64,7 +64,6 @@ export default function Navbar() {
             href="/dashboard"
             className="flex items-center gap-2 px-3 py-2  rounded-lg  transition"
           >
-            <span>Profile</span>
           </Link>
           {/* Logout button for desktop */}
           <button
