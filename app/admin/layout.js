@@ -3,7 +3,7 @@
 import AdminSidebar from "./components/AdminSidebar";
 // import AdminNavbar from "./components/AdminNavbar";
 
-export default function AdminLayout({ children }) {
+export default function AdminLayout({ children}) {
   return (
     <div className="flex w-full min-h-screen bg-gray-100">
       <AdminSidebar />

@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { FaEnvelope, FaPhone, FaMapMarkerAlt } from "react-icons/fa";
 import Footer from "../footer/page";
+import Navbar from "../navbar/page";
 
 export default function ContactPage() {
   // State for complaint form
@@ -20,6 +21,7 @@ export default function ContactPage() {
 
   return (
     <>
+    <Navbar/>
     <div className="min-h-screen bg-gray-50 py-12 px-6 md:px-16 mt-10">
       {/* Title */}
       <h1 className="text-3xl font-bold text-center text-blue-800 mb-8">

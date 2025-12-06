@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Navbar from '../navbar/page';
 
 export default function About() {
   const parallaxRef = useRef(null);
@@ -20,8 +21,7 @@ export default function About() {
   return (
     <>
     
-    // Example: About Sections
-
+<Navbar/>
 {/* About Us Section */}
 <div className="relative h-screen overflow-hidden">
   <div

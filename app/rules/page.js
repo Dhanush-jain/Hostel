@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Footer from "../footer/page";
+import Navbar from "../navbar/page";
 
 const rulesData = [
   {
@@ -84,6 +85,7 @@ const RulesPage = () => {
 
   return (
     <>
+    <Navbar/>
     <div className="min-h-screen bg-gray-50 flex justify-center py-10 px-4 mt-20">
       <div className="max-w-3xl w-full bg-white shadow-xl rounded-2xl p-6">
         <h1 className="text-3xl font-bold text-center text-indigo-600 mb-6">

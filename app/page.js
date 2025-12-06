@@ -2,10 +2,12 @@
 import React from "react";
 import Link from "next/link";
 import Footer from "./footer/page";
+import Navbar from "./navbar/page";
 
 export default function Home() {
   return (
     <>
+    <Navbar/>
     
     <div className="min-h-screen flex flex-col">
    

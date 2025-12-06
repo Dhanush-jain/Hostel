@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Footer from "../footer/page";
+import Navbar from "../navbar/page";
 
 export default function MessPage() {
   const features = [
@@ -39,6 +40,7 @@ export default function MessPage() {
 
   return (
     <>
+    <Navbar/>
     <div className="p-8 m-6 mt-10 w-full">
       <h1 className="text-3xl font-bold text-center mb-8">
         🍽️ Hostel Mess Management

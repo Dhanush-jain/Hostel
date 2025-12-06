@@ -26,25 +26,7 @@ export default function MessAdmission() {
       </div>
 
       {/* 🔹 360° Image Section */}
-      <div className="max-w-3xl w-full bg-white shadow-lg rounded-2xl p-4 mb-8">
-        <h2 className="text-xl font-semibold text-gray-800 mb-3 text-center">Explore Our Mess Hall in 360°</h2>
-
-        {/* 360° View using iframe */}
-        <div className="w-full aspect-video rounded-xl overflow-hidden shadow-md border">
-          <iframe
-            src="https://momento360.com/e/u/45b66e9cedea4b4492c50c99acff6475?utm_campaign=embed&utm_source=other&heading=0&pitch=0&field-of-view=44.8&size=medium&display-plan=true"
-            title="Mess Hall 360 View"
-            width="100%"
-            height="100%"
-            allowFullScreen
-            className="rounded-xl"
-          ></iframe>
-        </div>
-
-        <p className="text-sm text-gray-500 mt-2 text-center">
-          You can click and drag to look around the mess in 360° view.
-        </p>
-      </div>
+   
 
       {/* 🔹 Mess Admission Form */}
       <div className="max-w-md w-full bg-white shadow-xl rounded-2xl p-6">
