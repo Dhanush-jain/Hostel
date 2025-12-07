@@ -6,7 +6,7 @@ export default function AdminSidebar() {
     { name: "Dashboard", path: "/admin" },
     { name: "Students", path: "/admin/students" },
     { name: "Admissions", path: "/admin/admissions" },
-    { name: "Rooms", path: "/admin/rooms" },
+    { name: "Rooms", path: "/admin/bookedrooms" },
     { name: "Mess", path: "/admin/mess" },
     { name: "Payments", path: "/admin/payments" },
     { name: "Complaints", path: "/admin/complaints" },

@@ -6,12 +6,7 @@ import Navbar from "../navbar/page";
 
 export default function MessPage() {
   const features = [
-    {
-      title: "Mess Admission",
-      description: "Apply for hostel mess admission online.",
-      link: "/mess/admission",
-      color: "bg-blue-100",
-    },
+    
     {
       title: "Mess Timetable",
       description: "Check the weekly mess schedule.",

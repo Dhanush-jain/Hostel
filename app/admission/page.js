@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Navbar from "../navbar/page";
 import { useRouter } from "next/navigation";
+import Footer from "../footer/page";
 
 export default function MessAdmission() {
   const [formData, setFormData] = useState({
@@ -290,6 +291,7 @@ export default function MessAdmission() {
           </form>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }
