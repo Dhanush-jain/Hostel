@@ -13,6 +13,7 @@ const links = [
   { href: "/rules", label: "Rules and regulation" },
   { href: "/admission", label: "Admission" },
   { href: "/contact", label: "Contact" },
+  { href: "/dashboard", label: "Dashboard" },
 ];
 
 export default function Navbar() {
