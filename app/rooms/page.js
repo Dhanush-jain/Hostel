@@ -1,10 +1,14 @@
 "use client";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function HostelBlueprint() {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
-  // Dummy room list (replace with API later)
+  const studentId = searchParams?.get("student");
+
+  console.log("Student ID received:", studentId);
+
   const rooms = [
     { id: 101, floor: 1 },
     { id: 102, floor: 1 },
@@ -27,7 +31,9 @@ export default function HostelBlueprint() {
           .map((room) => (
             <div
               key={room.id}
-              onClick={() => router.push(`/rooms/${room.id}`)}
+              onClick={() =>
+                router.push(`/rooms/${room.id}?student=${studentId}`)
+              }
               className="p-6 bg-gray-200 rounded-xl shadow-md border hover:bg-blue-300 cursor-pointer transition text-center font-semibold text-lg"
             >
               Room {room.id}
@@ -43,7 +49,9 @@ export default function HostelBlueprint() {
           .map((room) => (
             <div
               key={room.id}
-              onClick={() => router.push(`/rooms/${room.id}`)}
+              onClick={() =>
+                router.push(`/rooms/${room.id}?student=${studentId}`)
+              }
               className="p-6 bg-gray-200 rounded-xl shadow-md border hover:bg-blue-300 cursor-pointer transition text-center font-semibold text-lg"
             >
               Room {room.id}

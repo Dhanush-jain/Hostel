@@ -5,6 +5,7 @@ import Image from "next/image";
 import { auth, db } from "@/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import Navbar from "../navbar/page";
 
 export default function UserDashboard() {
   const [userData, setUserData] = useState(null);
@@ -64,6 +65,8 @@ export default function UserDashboard() {
   if (!userData) return <p className="p-6 text-lg">No user data available.</p>;
 
   return (
+    <>
+    <Navbar/>
     <div className="m-20 max-w-3xl p-6 border rounded-xl shadow-lg bg-white">
       <h2 className="text-3xl font-bold mb-6 text-center">User Dashboard</h2>
 
@@ -74,7 +77,7 @@ export default function UserDashboard() {
           height={90}
           alt="User Photo"
           className="rounded-full border"
-        />
+          />
 
         <div>
           <p><strong>Name:</strong> {userData.name || "Not set"}</p>
@@ -86,7 +89,7 @@ export default function UserDashboard() {
       <button
         className="mt-6 px-4 py-2 bg-blue-600 text-white rounded-lg"
         onClick={() => setEditMode(true)}
-      >
+        >
         Edit Profile
       </button>
 
@@ -100,30 +103,31 @@ export default function UserDashboard() {
             placeholder="Name"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
-          />
+            />
 
           <input
             className="border p-2 w-full mb-3"
             placeholder="Phone"
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
-          />
+            />
 
           <button
             className="px-4 py-2 bg-green-600 text-white rounded-lg mr-3"
             onClick={handleSave}
-          >
+            >
             Save
           </button>
 
           <button
             className="px-4 py-2 bg-gray-400 text-white rounded-lg"
             onClick={() => setEditMode(false)}
-          >
+            >
             Cancel
           </button>
         </div>
       )}
     </div>
+            </>
   );
 }

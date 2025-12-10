@@ -15,7 +15,7 @@ export default function MessAdmission() {
     phone: "",
     email: "",
     hostel: "",
-    room: "",
+    
   });
 
   const [feeReceipt, setFeeReceipt] = useState(null);
@@ -38,14 +38,41 @@ export default function MessAdmission() {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Admission Form Data:", formData);
-    console.log("Uploaded Fee Receipt:", feeReceipt);
-    alert("Form submitted successfully (Firebase integration coming next!)");
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    router.push("/rooms");
-  };
+  const form = new FormData();
+  form.append("name", formData.name);
+  form.append("rollNo", formData.rollNo);
+  form.append("department", formData.department);
+  form.append("year", formData.year);
+  form.append("phone", formData.phone);
+  form.append("email", formData.email);
+  form.append("hostel", formData.hostel);
+  // form.append("room", formData.room);  // You removed room input in UI
+  form.append("feeReceipt", feeReceipt);
+
+  try {
+    const res = await fetch("http://localhost:5000/api/admission/submit", {
+      method: "POST",
+      body: form,
+    });
+
+    const data = await res.json();
+    console.log("Backend Response:", data);
+
+    if (res.ok) {
+      alert("Form submitted successfully!");
+       router.push(`/rooms?student=${data.studentId}`);
+ // Redirect to next page
+    } else {
+      alert("❌ Error: " + data.error);
+    }
+  } catch (error) {
+    console.error("Submit Error:", error);
+    alert("❌ Something went wrong!");
+  }
+};
 
   return (
     <>
