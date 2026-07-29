@@ -61,7 +61,7 @@ export default function MessPage() {
         ))}
       </div>
     </div>
-<Footer/>    
+  
 </>
   );
 }

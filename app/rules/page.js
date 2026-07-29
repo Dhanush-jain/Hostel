@@ -133,7 +133,7 @@ const RulesPage = () => {
         </div>
       </div>
     </div>
-    <Footer/>
+
 </>
   );
 };

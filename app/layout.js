@@ -1,11 +1,7 @@
-"use client"; // add this so we can use usePathname()
-
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "./navbar/page";
-import { usePathname } from "next/navigation";
-import Footer from "./footer/page";
 import LenisProvider from "./lenis/lenisprovider";
+import LayoutShell from "./components/LayoutShell";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,21 +13,29 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+/* Only possible because this file is a server component again. */
+export const metadata = {
+  title: {
+    default: "GIT Hostel Management",
+    template: "%s · GIT Hostel",
+  },
+  description:
+    "Hostel rooms, mess subscription, attendance and student profiles for GIT.",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 export default function RootLayout({ children }) {
-  const pathname = usePathname();
-
-  // Add any routes where you want to hide the navbar
-  const hideNavbarRoutes = ["/login", "/register"];
-  const shouldHideNavbar = hideNavbarRoutes.includes(pathname);
-
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {!shouldHideNavbar}
-        {children}
-        <LenisProvider/>
-       
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <LenisProvider />
+        <LayoutShell>{children}</LayoutShell>
       </body>
     </html>
   );
