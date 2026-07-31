@@ -291,7 +291,7 @@ export default function DashboardPage() {
               the first thing a student opens this page to find out, ahead of
               whether their details are saved. */}
           <section className="mt-4">
-            <AdmissionStatus />
+            {/* <AdmissionStatus /> */}
           </section>
 
           {/* ---------- Meal subscription tie-in ---------- */}
