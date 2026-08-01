@@ -4,6 +4,10 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
 import { useRole } from "../lib/useRole";
+// Add this import at the top
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
+
 
 /* Every admin subroute in one place. Adding a folder under app/admin/
    means adding one line here — the gate itself needs no change. */
@@ -79,12 +83,13 @@ export default function AdminLayout({ children }) {
               <span className="hidden truncate text-xs text-slate-400 sm:block">
                 {user.email}
               </span>
-              <Link
-                href="/"
-                className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-300 transition hover:bg-slate-800 hover:text-white"
-              >
-                Exit to site
-              </Link>
+           <button
+  onClick={() => signOut(auth).then(() => router.replace("/login"))}
+  className="rounded-lg border border-slate-700 px-3 py-1.5 text-xs font-semibold text-slate-300 transition hover:bg-slate-800 hover:text-white"
+>
+  Exit to site
+</button>
+
             </div>
           </div>
 
