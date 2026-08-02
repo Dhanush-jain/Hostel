@@ -2,6 +2,7 @@
 import React from "react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaEnvelope, FaPhone } from "react-icons/fa";
 
+// Footer 
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-blue-900 via-blue-800 to-blue-900 text-gray-200 py-10 mt-10">
